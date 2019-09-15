@@ -8,6 +8,7 @@ import {
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "shards-ui/dist/css/shards.min.css";
+import styled from 'styled-components';
 
 export default class InputScreen extends React.Component {
   constructor(props) {
@@ -21,25 +22,53 @@ export default class InputScreen extends React.Component {
   }
   render() {
       return (
-          <div>     
-            <InputGroup>
+          <StyledBody>     
+              <StyledHeader >Location</StyledHeader >
+              <StyledLocation>
               <FormInput
                 placeholder="Location"
                 onChange={this.handleChange}
               />
-            </InputGroup>  
+              </StyledLocation>
+              <StyledHeader >Max Price</StyledHeader >
+              <Prices>
+              <Button style = {{marginRight: 5}} theme='secondary'>$</Button>
+              <Button style = {{marginRight: 5}} theme='secondary'>$$</Button>
+              <Button style = {{marginRight: 5}} theme='secondary'>$$$</Button>
+              <Button style = {{marginRight: 5}} theme='secondary'>$$$$</Button>
+              </Prices>
 
-            <ButtonGroup>
-              <Button theme='secondary'>$</Button>
-              <Button theme='secondary'>$$</Button>
-              <Button theme='secondary'>$$$</Button>
-              <Button theme='secondary'>$$$$</Button>
-            </ButtonGroup>
-
-            <InputGroup>
+              <Begin>
               <Button theme="secondary">BEGIN</Button>
-            </InputGroup>
-          </div>
+              </Begin>
+              
+          </StyledBody>
       );
   }
 }
+
+
+const StyledBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  padding: 50px;
+  height: 100vh;
+`
+
+const StyledLocation = styled.div`
+`
+const Prices = styled.div`
+  display: flex;
+  justify-content: flex-start;
+`
+const StyledHeader = styled.div`
+  color: pink;
+  text-shadow: 2px 2px 0px #FF0000;
+  font-size: 45px;
+  font-weight: 900;
+  `
+const Begin = styled.div`
+  font-size: 60px;
+  font-weight: 900;
+`
