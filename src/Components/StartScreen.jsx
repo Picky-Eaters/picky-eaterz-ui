@@ -46,12 +46,15 @@ export default class StartScreen extends React.Component {
 const StyledBody = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
   padding: 50px;
+  background: #89CFF0;
+  height: 100vh;
 `
 
 const StyledHeader = styled.div`
   color: pink;
+  text-shadow: 2px 2px 0px #FF0000;
   font-size: 60px;
   font-weight: 900;
 `
