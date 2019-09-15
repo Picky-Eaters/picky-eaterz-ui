@@ -26,7 +26,7 @@ export default class StartScreen extends React.Component {
             <StyledHeader >Picky Eaterz, ready to EAT?</StyledHeader >
              <InputGroup>
               <FormInput
-                placeholder="input key" 
+                placeholder="input code" 
                 onChange={this.handleChange}
               />
               <InputGroupAddon type="append">
@@ -35,7 +35,7 @@ export default class StartScreen extends React.Component {
             </InputGroup>
           
             <StyledCreate>
-              <Button theme="secondary">CREATE KEY</Button>
+              <Button theme="secondary">CREATE CODE</Button>
             </StyledCreate>
           </StyledBody>
       );

@@ -26,7 +26,6 @@ export default class InputScreen extends React.Component {
               <StyledHeader >Location</StyledHeader >
               <StyledLocation>
               <FormInput
-                placeholder="Location"
                 onChange={this.handleChange}
               />
               </StyledLocation>
