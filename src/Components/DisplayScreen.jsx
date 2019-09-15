@@ -1,13 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { getRealtimeRestaurants } from '../api/api';
+import { getRestaurants } from '../api/api';
 
 export default class DisplayScreen extends React.Component {
   constructor(props) {
     super(props);
 
     this.gid = props.match.params.gid;
-    this.eventHandler = null;
     this.state = {
       loading: true,
       data: null,
@@ -16,22 +15,17 @@ export default class DisplayScreen extends React.Component {
   }
 
   async componentDidMount() {
-    this.eventHandler = getRealtimeRestaurants(this.gid, (data) => {
-      const restaurants = Object.values(JSON.parse(data));
-      restaurants.sort((a, b) => {
-        return b.votes - a.votes;
-      });
-
-      this.setState({
-        loading: false,
-        data: restaurants.slice(0, 3),
-        maxVotes: restaurants[0].votes
-      });
+    const data = await getRestaurants(this.gid);
+    const restaurants = Object.values(data);
+    restaurants.sort((a, b) => {
+      return b.votes - a.votes;
     });
-  }
 
-  componentWillUnmount() {
-    this.eventHandler && this.eventHandler.close();
+    this.setState({
+      loading: false,
+      data: restaurants.slice(0, 3),
+      maxVotes: restaurants[0].votes
+    });
   }
 
   itemToDisplay = (place) => {
@@ -59,7 +53,7 @@ export default class DisplayScreen extends React.Component {
         <StyledLabel>{"Group: " + this.gid.toUpperCase()}</StyledLabel>
         <StyledText>Leaders:</StyledText>
         <Winners>
-          {!loading && data.map(this.itemToDisplay)}
+          {data && data.map(this.itemToDisplay)}
         </Winners>
       </StyledBody>
     );
