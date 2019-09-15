@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // API flavor, set to 0 for local and 1 for remote.
-const apiFlavor = 0;
+const apiFlavor = 1;
 const apiUrl = apiFlavor ?
   "https://picky-eaterz-backend-dot-picky-eaterz.appspot.com/" :
   "http://localhost:8080/";

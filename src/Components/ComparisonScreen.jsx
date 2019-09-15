@@ -1,13 +1,6 @@
 import React from 'react';
 import { getRestaurants, voteForRestaurant } from '../api/api';
 import {
-  Button,
-  Card,
-  CardSubtitle,
-  CardTitle,
-  CardImg,
-  CardBody,
-  Tooltip,
   Modal,
   ModalHeader,
   ModalBody
@@ -87,21 +80,29 @@ export default class ComparisonScreen extends React.Component {
 
   // Converts a restaurant element into a display element.
   itemToDisplay = (place) => {
+    const { voting } = this.state;
+    const categories = place.categories;
+
     return (
-      <Button onClick={() => this.handleVote(place.id)}>
-        <Card style={{ maxWidth: "300px" }}>
-          <CardImg src="https://via.placeholder.com/300x200" />
-          <CardBody>
-            <CardTitle>{place.name}</CardTitle>
-            <CardSubtitle>{place.categories[0]}</CardSubtitle>
-          </CardBody>
-        </Card>
-      </Button>
+      <RestaurantContainer
+        onClick={voting ? null : () => this.handleVote(place.id)}>
+        <RestaurantImage
+          style={{
+            backgroundImage: `url('${place.image_url}')`
+          }}>
+          <LabelContainer>
+            <StyledLabel>{place.name}</StyledLabel>
+            {categories && categories.map(category => {
+              return <StyledCategory>{category}</StyledCategory>;
+            })}
+          </LabelContainer>
+        </RestaurantImage>
+      </RestaurantContainer>
     );
   };
 
   render() {
-    const { error, redirect, step, loading, voting } = this.state;
+    const { error, redirect, step, loading } = this.state;
 
     if (redirect) {
       return <Redirect to={"/"} />;
@@ -112,7 +113,8 @@ export default class ComparisonScreen extends React.Component {
     }
 
     return (
-      <div>
+      <StyledBody>
+        <StyledLabel>{"Group: " + this.gid.toUpperCase()}</StyledLabel>
         <Container>
           {!loading && this.itemToDisplay(this.restaurants[step * 2])}
           {!loading && this.itemToDisplay(this.restaurants[step * 2 + 1])}
@@ -121,14 +123,63 @@ export default class ComparisonScreen extends React.Component {
           <ModalHeader>Error</ModalHeader>
           <ModalBody>{error}</ModalBody>
         </Modal>
-      </div>
+      </StyledBody>
     );
   }
 }
 
+const StyledBody = styled.div`
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 3em;
+      height: 100%;
+      width: 100%;
+    `
 const Container = styled.div`
-    display: flex;
-    justify-content: space-around;
-    height: 100vh;
-    padding-top: 30px;
-`
+      display: flex;
+      justify-content: space-around;
+      height: 100%;
+      width: 100%;
+      margin: 2em auto;
+    `
+const RestaurantContainer = styled.div`
+      width: 40%;
+      height: 100%;
+    `
+const RestaurantImage = styled.div`
+      width: 100%;
+      height: 100%; 
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      border-radius: 8px;
+    `
+
+const LabelContainer = styled.div`
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, .6);
+      border-radius: 8px;
+    `
+
+const StyledLabel = styled.div`
+      color: pink;
+      text-shadow: 2px 2px 0px #FF0000;
+      font-size: 2em;
+      font-weight: 900;
+      text-align: center;
+    `
+
+const StyledCategory = styled.div`
+      color: pink;
+      text-shadow: 1px 1px 0px #FF0000;
+      font-size: 1em;
+      font-weight: 900;
+      text-align: center;
+      margin-top: 5px;
+    `

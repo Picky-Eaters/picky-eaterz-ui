@@ -1,53 +1,106 @@
 import React from 'react';
 import styled from 'styled-components';
+import { getRealtimeRestaurants } from '../api/api';
 
 export default class DisplayScreen extends React.Component {
-    constructor(props) {
-      super(props);
-      this.handleChange = this.handleChange.bind(this);
-      this.state = { first:'Mander' , second: 'bleh', third: 'hehe'};
-    }
-  
-    handleChange(e) {
-      this.setState( {first: e.target.value} );
-    }
-    render() {
-        return (
-            <StyledBody>     
-              
-                <StyledText style= {{paddingBottom: 10}}> You chose: </StyledText>
-                <StyledText>First: {this.state.first}</StyledText>
-                <Winners>
-                <Rectangle style={{margin: 10, width: 100, heigh: 130}}></Rectangle>
+  constructor(props) {
+    super(props);
 
-                <Rectangle></Rectangle>
-
-                <Rectangle></Rectangle>
-                </Winners>
-            </StyledBody>
-        );
-    }
+    this.gid = props.match.params.gid;
+    this.eventHandler = null;
+    this.state = {
+      loading: true,
+      data: null,
+      maxVotes: 0
+    };
   }
 
+  async componentDidMount() {
+    this.eventHandler = getRealtimeRestaurants(this.gid, (data) => {
+      const restaurants = Object.values(JSON.parse(data));
+      restaurants.sort((a, b) => {
+        return b.votes - a.votes;
+      });
+
+      this.setState({
+        loading: false,
+        data: restaurants.slice(0, 3),
+        maxVotes: restaurants[0].votes
+      });
+    });
+  }
+
+  componentWillUnmount() {
+    this.eventHandler && this.eventHandler.close();
+  }
+
+  itemToDisplay = (place) => {
+    const { maxVotes } = this.state;
+    const width = (place.votes / maxVotes) * 100;
+
+    return (
+      <StyledContainer key={place.id}>
+        <StyledLabel style={{ marginBottom: '0.1em' }}>
+          {place.name}
+        </StyledLabel>
+        <Rectangle style={{
+          width: `${width}%`,
+          backgroundImage: `url('${place.image_url}')`
+        }} />
+      </StyledContainer>
+    );
+  };
+
+  render() {
+    const { data, loading } = this.state;
+
+    return (
+      <StyledBody>
+        <StyledLabel>{"Group: " + this.gid.toUpperCase()}</StyledLabel>
+        <StyledText>Leaders:</StyledText>
+        <Winners>
+          {!loading && data.map(this.itemToDisplay)}
+        </Winners>
+      </StyledBody>
+    );
+  }
+}
+
 const StyledBody = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  padding: 50px;
-  height: 100vh;
-`
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 3em;
+      height: 100%;
+      width: 100%;
+    `
 const StyledText = styled.div`
-  color: pink;
-  text-shadow: 2px 2px 0px #FF0000;
-  font-size: 45px;
-  font-weight: 900;
-  `
+      color: pink;
+      text-shadow: 2px 2px 0px #FF0000;
+      font-size: 45px;
+      font-weight: 900;
+    `
+const StyledLabel = styled.div`
+      color: pink;
+      text-shadow: 2px 2px 0px #FF0000;
+      font-size: 2em;
+      font-weight: 900;
+    `
 const Winners = styled.div`
-  display: flex;
-  justify-content: flex-end;
-`
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: flex-start;
+      width: 100%;
+      height: 100%;
+    `
+const StyledContainer = styled.div`
+      width: 100%;
+    `
 const Rectangle = styled.div`
-    width:500px;
-    height:100px;
-    background: grey;
-`
+      height: 6em;
+      background: grey;
+      background-repeat: repeat;
+      background-size: auto 6em;
+      border-radius: 8px;
+    `

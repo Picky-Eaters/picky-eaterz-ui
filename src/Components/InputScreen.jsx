@@ -108,19 +108,19 @@ export default class InputScreen extends React.Component {
               theme='secondary'
               onClick={() => this.handlePriceChange(2)}>
               $$
-          </Button>
+            </Button>
             <Button
               style={{ marginRight: 5 }}
               theme='secondary'
               onClick={() => this.handlePriceChange(3)}>
               $$$
-          </Button>
+            </Button>
             <Button
               style={{ marginRight: 5 }}
               theme='secondary'
               onClick={() => this.handlePriceChange(4)}>
               $$$$
-          </Button>
+            </Button>
           </Prices>
           <Begin>
             <Button
