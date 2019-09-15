@@ -27,6 +27,22 @@ export async function createGroup(location, price) {
 }
 
 /**
+ * Determines whether the given group exists.
+ * 
+ * @param {String} gid - the group ID to check for.
+ * @returns {bool} Whether a group with the given ID exists.
+ */
+export async function checkExists(gid) {
+  try {
+    const groupUrl = `groups/${gid}`;
+    await axios.get(`${apiUrl}${groupUrl}`);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+/**
  * Retrieves the restaurant information for a given group.
  * 
  * @param {String} gid - the group ID to get the restaurants for.
