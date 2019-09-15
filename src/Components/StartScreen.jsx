@@ -47,7 +47,6 @@ const StyledBody = styled.div`
   flex-direction: column;
   justify-content: center;
   padding: 50px;
-  background: #89CFF0;
   height: 100vh;
 `
 
