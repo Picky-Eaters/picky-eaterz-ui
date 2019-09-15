@@ -41,7 +41,6 @@ export default class StartScreen extends React.Component {
     const exists = await checkExists(code);
 
     if (exists) {
-      console.log("Group joined");
       this.setState({
         "joining": false,
         "joined": true

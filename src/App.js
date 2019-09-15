@@ -11,21 +11,19 @@ function App() {
   return (
     <Router>
       <StyledBackground>
-        <DisplayScreen/>
-        {/* <Switch>
+        {/* <DisplayScreen/> */}
+        <Switch>
           <Route exact path="/" component={StartScreen} />
           <Route path="/input" component={InputScreen} />
           <Route path="/comparison/:gid" component={ComparisonScreen} />
           <Route path="/display/:gid" component={DisplayScreen} />
-        </Switch> */}
+        </Switch>
       </StyledBackground>
     </Router>
   );
 }
 
 export default App;
-
-
 
 const StyledBackground = styled.div`
       background: #89CFF0;
