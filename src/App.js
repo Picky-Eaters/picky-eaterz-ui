@@ -5,16 +5,19 @@ import InputScreen from './Components/InputScreen';
 import ComparisonScreen from './Components/ComparisonScreen'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
+import DisplayScreen from './Components/DisplayScreen';
 
 function App() {
   return (
     <Router>
       <StyledBackground>
-        <Switch>
+        <DisplayScreen/>
+        {/* <Switch>
           <Route exact path="/" component={StartScreen} />
           <Route path="/input" component={InputScreen} />
           <Route path="/comparison/:gid" component={ComparisonScreen} />
-        </Switch>
+          <Route path="/display/:gid" component={DisplayScreen} />
+        </Switch> */}
       </StyledBackground>
     </Router>
   );
