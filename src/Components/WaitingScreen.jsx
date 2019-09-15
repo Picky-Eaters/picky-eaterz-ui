@@ -12,13 +12,8 @@ import "shards-ui/dist/css/shards.min.css";
 export default class InputScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.handleChange = this.handleChange.bind(this);
-    this.state = { key: null };
   }
-
-  handleChange(e) {
-    this.setState( {key: e.target.value} );
-  }
+  
   render() {
       return (
           <div>     
@@ -26,7 +21,6 @@ export default class InputScreen extends React.Component {
             <InputGroup>
               <FormInput
                 placeholder="Group Key:"
-                onChange={this.handleChange}
               />
             </InputGroup>  
 
