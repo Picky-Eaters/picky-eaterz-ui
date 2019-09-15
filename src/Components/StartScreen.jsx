@@ -33,19 +33,11 @@ export default class StartScreen extends React.Component {
                 <Button theme="secondary">Join</Button>
               </InputGroupAddon>
             </InputGroup>
-<<<<<<< HEAD
-
-            <InputGroup>
-              <Button theme="secondary">CREATE</Button>
-            </InputGroup>
-          </div>
-=======
           
             <StyledCreate>
               <Button theme="secondary">CREATE KEY</Button>
             </StyledCreate>
           </StyledBody>
->>>>>>> 60433acadb3dc94129dea1eb2ce9230e10832a82
       );
   }
 }
