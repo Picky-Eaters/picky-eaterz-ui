@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import {
   FormTextarea,
   InputGroup,
@@ -62,3 +64,13 @@ const StyledCreate = styled.div`
   font-size: 60px;
   font-weight: 900;
 `
+
+const createLink = () => {
+  return (
+      <div className="creatLink">
+        <h1>React Router demo</h1>
+        <Link to="/InputScreen"><button>CREATE KEY</button></Link>
+      </div>
+  )
+}
+
