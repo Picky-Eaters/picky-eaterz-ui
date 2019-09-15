@@ -1,8 +1,7 @@
 import React from 'react';
+import { createGroup } from '../api/api.js'
 import {
-  InputGroup,
   FormInput,
-  ButtonGroup,
   Button
 } from "shards-react";
 
@@ -13,34 +12,54 @@ import styled from 'styled-components';
 export default class InputScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.handleChange = this.handleChange.bind(this);
-    this.state = { key: null };
+    this.sendState = this.sendState.bind(this);
+    this.state = { dollarAmount: 0, location: null};
   }
 
-  handleChange(e) {
-    this.setState( {key: e.target.value} );
+  sendState() {
+    createGroup(this.state.location, this.state.dollarAmount);
   }
+
   render() {
       return (
           <StyledBody>     
-              <StyledHeader >Location</StyledHeader >
+            <StyledHeader >Location</StyledHeader >
               <StyledLocation>
-              <FormInput
-                placeholder="Location"
-                onChange={this.handleChange}
-              />
+                <FormInput
+                  placeholder="Location"
+                  onChange={this.handleChange}
+                />
               </StyledLocation>
-              <StyledHeader >Max Price</StyledHeader >
-              <Prices>
-              <Button style = {{marginRight: 5}} theme='secondary'>$</Button>
-              <Button style = {{marginRight: 5}} theme='secondary'>$$</Button>
-              <Button style = {{marginRight: 5}} theme='secondary'>$$$</Button>
-              <Button style = {{marginRight: 5}} theme='secondary'>$$$$</Button>
-              </Prices>
+            <StyledHeader >Max Price</StyledHeader >
+            <Prices>
+              <Button 
+                style = {{marginRight: 5}}
+                theme='secondary' 
+                onClick={() => this.setState( {dollarAmount:1} )}>
+                  $</Button>
+              <Button 
+                style = {{marginRight: 5}} 
+                theme='secondary' 
+                onClick={() => this.setState( {dollarAmount:2} )}>
+                  $$</Button>
+              <Button 
+                style = {{marginRight: 5}} 
+                theme='secondary' 
+                onClick={() => this.setState( {dollarAmount:3} )}>
+                  $$$</Button>
+              <Button 
+                style = {{marginRight: 5}} 
+                theme='secondary' 
+                onClick={() => this.setState( {dollarAmount:4} )}>
+                  $$$$</Button>
+            </Prices>
 
-              <Begin>
-              <Button theme="secondary">BEGIN</Button>
-              </Begin>
+            <Begin>
+              <Button 
+                theme="secondary"
+                onClick={this.sendState}
+                >BEGIN</Button>
+            </Begin>
               
           </StyledBody>
       );
