@@ -13,7 +13,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={StartScreen} />
           <Route path="/input" component={InputScreen} />
-          <Route path="/comparison" component={ComparisonScreen} />
+          <Route path="/comparison/:gid" component={ComparisonScreen} />
         </Switch>
       </StyledBackground>
     </Router>

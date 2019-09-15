@@ -9,7 +9,7 @@ import {
   ModalBody
 } from "shards-react";
 import { checkExists } from '../api/api';
-import { Redirect } from 'react-router';
+import { Redirect } from 'react-router-dom';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "shards-ui/dist/css/shards.min.css";
 import styled from 'styled-components';
@@ -90,14 +90,14 @@ export default class StartScreen extends React.Component {
   }
 
   render() {
-    const { error, joining, creating, created, joined } = this.state;
+    const { error, joining, creating, created, joined, code } = this.state;
 
     if (created) {
       return <Redirect to={"/input"} />
     }
 
     if (joined) {
-      return <Redirect to={"/comparison"} />
+      return <Redirect to={`/comparison/${code}`} />
     }
 
     return (
@@ -111,7 +111,7 @@ export default class StartScreen extends React.Component {
             />
             <InputGroupAddon type="append">
               <Button
-                onClick={this.handleJoin}
+                onClick={joining ? null : this.handleJoin}
                 theme={"secondary"}>
                 {joining ? "Joining" : "Join"}
               </Button>

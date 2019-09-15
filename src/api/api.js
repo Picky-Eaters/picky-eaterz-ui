@@ -22,7 +22,6 @@ export async function createGroup(location, price) {
     }
   });
 
-  console.log(response.data);
   return response.data;
 }
 
