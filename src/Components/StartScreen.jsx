@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  FormTextarea,
   InputGroup,
   InputGroupAddon,
   FormInput,
@@ -35,7 +34,7 @@ export default class StartScreen extends React.Component {
             </InputGroup>
 
             <InputGroup>
-              <Button theme="primary">CREATE</Button>
+              <Button theme="secondary">CREATE</Button>
             </InputGroup>
           </div>
       );
