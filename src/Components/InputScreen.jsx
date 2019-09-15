@@ -1,4 +1,5 @@
 import React from 'react';
+import { createGroup } from '../api/api.js'
 import {
   FormInput,
   Button
@@ -16,7 +17,7 @@ export default class InputScreen extends React.Component {
   }
 
   sendState() {
-    console.log(this.state.dollarAmount);
+    createGroup(this.state.location, this.state.dollarAmount);
   }
 
   render() {
