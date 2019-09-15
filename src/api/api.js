@@ -51,7 +51,6 @@ export async function getRestaurants(gid) {
   const groupUrl = `groups/${gid}`;
   const response = await axios.get(`${apiUrl}${groupUrl}`);
 
-  console.log(response.data);
   return response.data;
 }
 
@@ -86,10 +85,16 @@ export async function deleteGroup(gid) {
 /**
  * Submits a vote for the restaurant with the given RID in the group with the given GID.
  * 
- * @param {*} gid - the group ID of the group to be acted on.
- * @param {*} rid - the restaurant ID of the restaurant to be acted on.
+ * @param {String} gid - the group ID of the group to be acted on.
+ * @param {String} rid - the restaurant ID of the restaurant to be acted on.
+ * @returns {bool} Whether the voting operation was successful.
  */
 export async function voteForRestaurant(gid, rid) {
-  const voteUrl = `groups/${gid}/${rid}`;
-  axios.put(`${apiUrl}${voteUrl}`);
+  try {
+    const voteUrl = `groups/${gid}/${rid}`;
+    await axios.put(`${apiUrl}${voteUrl}`);
+    return true;
+  } catch (e) {
+    return false;
+  }
 }
