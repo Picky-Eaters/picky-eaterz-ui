@@ -23,17 +23,16 @@ export default class WaitingScreen extends React.Component {
   }
   render() {
       return (
-          <StyledBody>     
-            
-             <StyledText style= {{paddingBottom: 10}}> Group Code: </StyledText>
-             <ListGroupItem theme="light">{this.state.code}</ListGroupItem>
-            <StyledLayer>
+        <StyledBody>     
+          <StyledText style= {{paddingBottom: 10}}> Group Code: </StyledText>
+          <ListGroupItem theme="light">{this.state.code}</ListGroupItem>
+          <StyledLayer>
             <StyledText>Participants: {this.state.participants}</StyledText>
             <StyledButton>
-            <Button theme="secondary">Start</Button>
+              <Button theme="secondary">Start</Button>
             </StyledButton>
-            </StyledLayer>
-          </StyledBody>
+          </StyledLayer>
+        </StyledBody>
       );
   }
 }
